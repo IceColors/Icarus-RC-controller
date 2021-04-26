@@ -20,8 +20,8 @@ local function run_func()
   
   playFile("nmp6.wav")
   playNumber(_new_motor_pitch, 20, 0)
-  _transmitted_motor_pitch = _new_motor_pitch
   
+  _transmitted_motor_pitch = _new_motor_pitch
   _motor_pitch_changed = false
 end
 
