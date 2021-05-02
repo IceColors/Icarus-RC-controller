@@ -1,11 +1,21 @@
 from PIL import Image
+from PIL import ImageOps
 import bitmap
 
-img = Image.open("./motor.bmp")
+
+img = Image.open(".\sdrone.bmp")
+
+
+
+im2 = img.convert('RGBA')
+im2 = ImageOps.pad(im2, (32, 32))
 
 for i in range(-90, 91):
-    rotated = img.rotate(i)
-    rotated.save("motor_{}.bmp".format(i))
+    rotated = im2.rotate(i)
+    fff = Image.new('RGBA', rotated.size, (255,)*4)
 
-for i in range(-90, 91):
-    img = bitmap.open()
+    out = Image.composite(rotated, fff, rotated)
+    out.convert(img.mode).save("drone_{}.bmp".format(i))
+
+
+    

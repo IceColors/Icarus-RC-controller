@@ -6,23 +6,33 @@ if _transmitted_motor_pitch == nil then
   _transmitted_motor_pitch = 0
 end
 
-if _motor_pitch_changed == nil then
-  _motor_pitch_changed = false
+if _new_aoa == nil then
+  _new_aoa = 0
 end
+
+if _transmitted_aoa == nil then
+  _transmitted_aoa = 0
+end
+
 
 local function init_func()
 end
 
 local function run_func()
-  if _motor_pitch_changed == false then
+  if _new_motor_pitch == _transmitted_motor_pitch and _new_aoa == _transmitted_aoa then
     return
   end
   
-  playFile("nmp6.wav")
-  playNumber(_new_motor_pitch, 20, 0)
+  if _new_motor_pitch ~= _transmitted_motor_pitch then
+    playFile("nmp6.wav")
+    playNumber(_new_motor_pitch, 20, 0)
+  end
+  if _new_aoa ~= _transmitted_aoa then
+    playNumber(_new_aoa, 20, 0)
+  end
   
   _transmitted_motor_pitch = _new_motor_pitch
-  _motor_pitch_changed = false
+  _transmitted_aoa = _new_aoa
 end
 
 return { run=run_func, init=init_func }
